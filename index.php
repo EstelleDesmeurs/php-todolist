@@ -1,4 +1,8 @@
-<?php require 'form.php';
+<?php 
+require 'form.php';
+
+
+
 ?>
 
 <html>
@@ -12,18 +16,20 @@
 
 <form id="form" action="" method="post">
     <textarea name="content" id="content"></textarea>
-    <input type="submit" id="submit" name="submit" value="Envoyer"/>
+    <input type="submit" id="todo" name="todo" value="Envoyer"/>
 
 <h2>A faire</h2>
 <?php
 toDo();
 ?>
-<input type="submit" id="submit" name="submit" value="Enregistrer"/>
+<input type="submit" id="done" name="done" value="Enregistrer"/>
 
 
 <h2>Archives</h2>
 
-
+<?php
+done();
+?>
 
 
 </form>

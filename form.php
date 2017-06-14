@@ -1,24 +1,31 @@
 <?php
-
+function pr($array){
+	echo '<pre>';
+	print_r($array);
+	echo '</pre>';
+}
 
 function sanitize($x) { 
     $x = filter_var($x, FILTER_SANITIZE_STRING);
     $x = htmlspecialchars($x, FILTER_SANITIZE_STRING);    
     return $x;
 }
-$content = sanitize($_POST['content']);	
+
 function validate($y) {
     $y= filter_var($y, FILTER_VALIDATE_STRING);
     return $y;
 }
 
-
+$content = sanitize($_POST['content']);	
 //print_r($content);
-			$todojson = 'assets/js/todo.json';
-			//print_r($todojson);
-			$openFile = file_get_contents($todojson);
-			//print_r($openFile);
-			$obj = json_decode($openFile, true);
+$todojson = 'assets/js/todo.json';
+//print_r($todojson);
+$openFile = file_get_contents($todojson);
+//print_r($openFile);
+$obj = json_decode($openFile, true);
+
+pr($_POST);
+
 
 function toDo(){
 	global $obj;     
@@ -38,29 +45,33 @@ function toDo(){
 			echo "Ajoutez une tâche";
 		}
 	}	
-
-	
-
 	foreach ($obj as $x => $y) {
-//print_r($y);
+	//print_r($y);
 		if ($y['done'] == false){ 
-	 		echo '<input type="checkbox" id="submit" name="done" value="done">'.$y['task'].'<br>';
+	 		echo '<label><input type="checkbox" name="taches['.$x.']" value="done">'.$y['task'].'</label><br>';
 		}
 	}
 }
 
 //Si $y est checked, alors done == true.
-if ($task == 'checked'){
-	$task['done'] == true;
-}
+//if ($task == 'checked'){
+//	$task['done'] == true;
+//}
 function done(){
-//$checked = ($_POST['task'] == ' checked');
+	if(!empty($_POST['taches'])){
+		foreach ($_POST['done'] as $key => $value) {
+			$value -> true;
+			pr($value);
+		}
+	}
+	//$checked = ($_POST['task'] == ' checked');
 	global $obj;
 	foreach ($obj as $x => $y) {
-//print_r($y);
-		if ($y['done'] == true){ 
-			echo '<input type="checkbox" id="submit" name="done[true]" value="done">'.$y['task'].'<br>';
+	//print_r($y);
+		if ($y['done'] === true){ 
+			echo '<label><input type="checkbox" name="done[true]" value="done">'.$y['task'].'</label><br>';
 		}
+
 	}
 }
 
