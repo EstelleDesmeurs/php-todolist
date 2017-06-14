@@ -1,32 +1,35 @@
 <?php
 
-$content = sanitize($_POST['content']);	
+
 function sanitize($x) { 
     $x = filter_var($x, FILTER_SANITIZE_STRING);
     $x = htmlspecialchars($x, FILTER_SANITIZE_STRING);    
     return $x;
 }
-
+$content = sanitize($_POST['content']);	
 function validate($y) {
     $y= filter_var($y, FILTER_VALIDATE_STRING);
     return $y;
 }
 
-function toDo(){     
-	if (isset($_POST['content'])) {
-			global $toDo;
-			global $done;
-			$toDo = [];
-			$done = [];
-		if (!empty ($_POST['content'])) {
-			$content = sanitize($_POST['content']);
-			//print_r($content);
+
+//print_r($content);
 			$todojson = 'assets/js/todo.json';
 			//print_r($todojson);
 			$openFile = file_get_contents($todojson);
 			//print_r($openFile);
 			$obj = json_decode($openFile, true);
-			$save = array_push($obj, $content);
+
+function toDo(){
+	global $obj;     
+	if (isset($_POST['content'])) {
+		if (!empty ($_POST['content'])) {
+			$content = sanitize($_POST['content']);	
+			$tasks = array(
+				"task" => $content,
+				"done" => false);
+			
+			$save = array_push($obj, $tasks);
 			$test = json_encode($obj, JSON_PRETTY_PRINT);
 			$put = file_put_contents($todojson, $test);
 			//print_r($obj);
@@ -35,27 +38,34 @@ function toDo(){
 			echo "Ajoutez une tâche";
 		}
 	}	
+
+	
+
+	foreach ($obj as $x => $y) {
+//print_r($y);
+		if ($y['done'] == false){ 
+	 		echo '<input type="checkbox" id="submit" name="done" value="done">'.$y['task'].'<br>';
+		}
+	}
 }
 
-/*
-    $obj = array($id => array("task" => $value, "status" => "open"));
-    if(is_array($current)) {
-        $current = array_merge_recursive($obj, $current);
-    } else {
-        $current = $obj;
-    }
-    $current=json_encode($current); 
-    if(file_put_contents($file, $current, LOCK_EX)) {
-        echo"Task added";
-    } else {
-        echo"failure.";
-    }
+//Si $y est checked, alors done == true.
+if ($task == 'checked'){
+	$task['done'] == true;
+}
+function done(){
+//$checked = ($_POST['task'] == ' checked');
+	global $obj;
+	foreach ($obj as $x => $y) {
+//print_r($y);
+		if ($y['done'] == true){ 
+			echo '<input type="checkbox" id="submit" name="done[true]" value="done">'.$y['task'].'<br>';
+		}
+	}
+}
 
-*/
 
 
 ?>
-
-
 
 
