@@ -7,6 +7,7 @@ body {
 
 main {
 	border: 1px solid #FFF;
+	border-radius: 4px;
 	width: 40%;
 	height: 80%;
 	margin-top: 3%;
@@ -61,6 +62,7 @@ textarea {
 #todo:hover{
 	background-color: rgba(89, 168, 143, 0.7);
 	color: #FFF;
+	border: none;
 }
 
 #done {
@@ -76,6 +78,7 @@ textarea {
 #done:hover{
 	background-color: rgba(89, 168, 143, 0.7);
 	color: #FFF;
+	border: none;
 }
 
 .taches, .tachesDone {
