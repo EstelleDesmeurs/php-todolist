@@ -1,6 +1,5 @@
 <?php 
-require 'form.php';
-
+require 'test1.php';
 ?>
 
 <html>
@@ -17,17 +16,16 @@ require 'form.php';
     <input type="submit" id="todo" name="todo" value="Envoyer"/>
 
 <h2>A faire</h2>
-
 <?php
 toDo();
 ?>
-
 <input type="submit" id="done" name="done" value="Enregistrer"/>
+
 
 <h2>Archives</h2>
 
 <?php
-displayDone();
+done();
 ?>
 
 
