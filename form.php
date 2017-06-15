@@ -40,25 +40,29 @@ function toDo(){
 			$test = json_encode($obj, JSON_PRETTY_PRINT);
 			//print_r($test);
 			$put = file_put_contents($todojson, $test);
-			print_r($obj);
+			//print_r($obj);
 		}
-		else {
+		/*else {
 			echo "Ajoutez une tâche";
-		}
+		}*/
 	}	
 	foreach ($obj as $x => $y) {
 	//print_r($y);
 		if ($y['done'] === false){ 
-	 		echo '<label><input type="checkbox" name="taches['.$x.']" value="done">'.$y['task'].'</label><br>';
+	 		echo '<label class="taches"><input type="checkbox" name="taches['.$x.']" value="done">'.$y['task'].'</label><br>';
 		}
 	}
 }
 
 if(!empty($_POST['taches'])){
 		foreach ($_POST['taches'] as $key => $value) {
+			global $todojson;
 			//$value = true;
 			$obj[$key]['done'] = true;
-			
+			$save = array_push($bj, $tasks);
+			$test = json_encode($obj, JSON_PRETTY_PRINT);
+			$put = file_put_contents($todojson, $test);
+
 		}
 	}
 function displayDone(){
@@ -68,7 +72,7 @@ function displayDone(){
 	foreach ($obj as $x => $y) {
 	//print_r($y);
 		if ($y['done'] === true){ 
-			echo '<label><input type="checkbox" name="done[true]" value="done">'.$y['task'].'</label><br>';
+			echo '<label class="tachesDone"><input type="checkbox" name="done[true]" value="done">'.$y['task'].'</label><br>';
 		}
 
 	}
